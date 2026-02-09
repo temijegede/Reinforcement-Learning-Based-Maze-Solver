@@ -94,7 +94,7 @@ The standard Q-learning update rule is applied in this instance every training s
 $` Q(s,a) \leftarrow Q(s,a) + \alpha \left[
 r + \gamma \max_{a'} Q(s', a') - Q(s,a)
 \right] `$
-\
+
 | Symbol         | Meaning                     |
 | -------------- | --------------------------- |
 | `s`            | Current state               |
