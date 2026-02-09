@@ -91,7 +91,9 @@ Without exploration, the agent could converge prematurely to a suboptimal path.
 
 ### Updating the Q-Table
 The standard Q-learning update rule is applied in this instance every training step.\
-$` Q(s,a) \leftarrow Q(s,a) + \alpha [r + \gamma max Q(s^' , a) - Q(s,a)] `$
+$` Q(s,a) \leftarrow Q(s,a) + \alpha \left[
+r + \gamma \max_{a'} Q(s', a') - Q(s,a)
+\right] `$
 \
 | Symbol         | Meaning                     |
 | -------------- | --------------------------- |
