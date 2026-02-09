@@ -1,5 +1,6 @@
 import numpy as np
 import random
+import gc
 from Mazer import Maze
 
 # Maze generation
@@ -26,8 +27,8 @@ qTable = np.zeros((maze.shape[0], maze.shape[1], len(actions)))
 
 alpha = 0.1      # learning rate
 gamma = 0.9      # discount factor
-epsilon = 0.2    # exploration rate
-episodes = 300
+epsilon = 0.4    # exploration rate
+episodes = 1000
 
 def step(state, action):
     x, y = state
@@ -38,7 +39,7 @@ def step(state, action):
     if nx < 0 or nx >= maze.shape[0] or ny < 0 or ny >= maze.shape[1] or maze[nx, ny] == 1:
         return state, -5  # hit wall
     if (nx, ny) == goalState:
-        return (nx, ny), 10  # goal reached
+        return (nx, ny), 100  # goal reached
 
     return (nx, ny), -1  # normal move, negative reward to encourage efficiency
 
@@ -47,7 +48,7 @@ for episode in range(episodes):
     state = startState
     steps = 0
 
-    while state != goalState:
+    while state != goalState:# and steps <= 2000:
         x, y = state
 
         # Epsilon-greedy action selection
@@ -60,18 +61,22 @@ for episode in range(episodes):
         nextState, reward = step(state, action)
         nx, ny = nextState
 
-        # Q-learning update
+        # Q-learning update for selected action
         qTable[x, y, actionIdx] += alpha * (
             reward + gamma * np.max(qTable[nx, ny]) - qTable[x, y, actionIdx]
         )
 
         state = nextState
         steps +=1
-    continue
+
+    if episode % 10 == 0:
+        gc.collect() # Manual garbage collection trigger
+    
 
         
 state = startState
 path = [state]
+steps = 0
 
 while state != goalState:
     x, y = state
@@ -79,7 +84,9 @@ while state != goalState:
     action = actions[actionIdx]
     state, _ = step(state, action)
     path.append(state)
+    steps += 1
 
+print("Number of steps to solve: " + str(steps))
 print("Learned path:")
 print(path)
 genMaze.plotPathinMaze(path)
