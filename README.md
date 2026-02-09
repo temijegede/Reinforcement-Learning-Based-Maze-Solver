@@ -70,9 +70,9 @@ In tabular Q-learning, the agent is based on a table of 'Q' values. The Q values
 ### Learning Parameters
 | Parameter  | Name              | Purpose                                                |
 | ---------- | ----------------- | ------------------------------------------------------ |
-| alpha $` \alpha `$   | Learning rate     | A weight that controls how much new information overrides old values                              |
-| gamma  $` \gamma `$  | Discount factor   | Determines how much future rewards matter relative to current values                                    |
-| epsilon  | Exploration rate  | Probability of choosing a random action rather than the action derived from the Q table               |
+| alpha ($` \alpha `$)   | Learning rate     | A weight that controls how much new information overrides old values                              |
+| gamma  ($` \gamma `$)  | Discount factor   | Determines how much future rewards matter relative to current values                                    |
+| epsilon ($`\epsilon`$) | Exploration rate  | Probability of choosing a random action rather than the action derived from the Q table               |
 | episodes | Training episodes | Number of learning runs                                                          |
 
 ### Maze Environment Transition Functon
@@ -91,7 +91,7 @@ Without exploration, the agent could converge prematurely to a suboptimal path.
 
 ### Updating the Q-Table
 The standard Q-learning update rule is applied in this instance every training step.\
-$ Q(s,a) \leftarrow Q(s,a) + \alpha [r + \gamma max Q(s^' , a) - Q(s,a)] $
+$` Q(s,a) \leftarrow Q(s,a) + \alpha [r + \gamma max Q(s^' , a) - Q(s,a)] `$
 \
 | Symbol         | Meaning                     |
 | -------------- | --------------------------- |
